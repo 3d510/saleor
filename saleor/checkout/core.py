@@ -396,26 +396,26 @@ class Checkout:
 
     def get_subtotal(self):
         """Calculate order total without shipping and discount."""
-        zero = TaxedMoney(
+        zero_subtotal = TaxedMoney(
             net=Money(0, currency=settings.DEFAULT_CURRENCY),
             gross=Money(0, currency=settings.DEFAULT_CURRENCY))
 
         cost_iterator = (
             total - shipping_cost
             for shipment, shipping_cost, total in self.deliveries)
-        total = sum(cost_iterator, zero)
+        total = sum(cost_iterator, zero_subtotal)
         return total
 
     def get_total(self):
         """Calculate order total with shipping and discount amount."""
-        zero = TaxedMoney(
+        zero_total = TaxedMoney(
             net=Money(0, currency=settings.DEFAULT_CURRENCY),
             gross=Money(0, currency=settings.DEFAULT_CURRENCY))
 
         cost_iterator = (
             total
             for shipment, shipping_cost, total in self.deliveries)
-        total = sum(cost_iterator, zero)
+        total = sum(cost_iterator, zero_total)
         if self.discount_amount:
             return total - self.discount_amount
         return total

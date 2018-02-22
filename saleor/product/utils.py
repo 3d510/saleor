@@ -313,13 +313,13 @@ def get_variant_availability_status(variant):
 
 
 def get_product_costs_data(product):
-    if not product.variants.exists():
-        zero = TaxedMoney(
-            net=Money(0, currency=settings.DEFAULT_CURRENCY),
-            gross=Money(0, currency=settings.DEFAULT_CURRENCY))
-        purchase_costs_range = TaxedMoneyRange(start=zero, stop=zero)
-        gross_margin = (0, 0)
+    zero = TaxedMoney(
+        net=Money(0, currency=settings.DEFAULT_CURRENCY),
+        gross=Money(0, currency=settings.DEFAULT_CURRENCY))
+    purchase_costs_range = TaxedMoneyRange(start=zero, stop=zero)
+    gross_margin = (0, 0)
 
+    if not product.variants.exists():
         return purchase_costs_range, gross_margin
 
     variants = product.variants.all()
@@ -363,10 +363,10 @@ def get_variant_costs_data(variant):
 
 def get_cost_price(stock):
     if not stock.cost_price:
-        zero = TaxedMoney(
+        zero_price = TaxedMoney(
             net=Money(0, currency=settings.DEFAULT_CURRENCY),
             gross=Money(0, currency=settings.DEFAULT_CURRENCY))
-        return zero
+        return zero_price
     return stock.get_total()
 
 
