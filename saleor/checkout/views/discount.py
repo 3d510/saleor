@@ -27,7 +27,6 @@ def add_voucher_form(view):
                     'next', request.META['HTTP_REFERER'])
                 return redirect(next_url)
             else:
-                dir(voucher_form.errors)
                 del checkout.discount_amount
                 del checkout.discount_name
                 del checkout.voucher_code
